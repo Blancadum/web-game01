@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="icon" type="image/png" href="assets/img/favicon.png" sizes="32x32">
+      <title>Pong Game</title>
+      <!-- Enlace al CSS de Bootstrap -->
+       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">       
+       <!-- Tema por defecto -->
+        <link id="themeStylesheet" rel="stylesheet" href="assets/css/day.css">
+
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Press+Start+2P&family=VT323&display=swap');
+        /* Ocultar los divs excepto el coverScreen */
+      </style>
+      
+  </head>
+  <body>
+    <!-- Barra de navegación con menú hamburguesa restaurado -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <!-- Menú principal -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#coverScreen">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#playWindow">Play!</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#sobreMi">About Me</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#faq">Faq</a>
+            </li>
+          </ul>
+          <!-- Interruptor de modo diurno/nocturno con Bootstrap -->
+ <!-- Interruptor para cambio de tema -->
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="themeSwitch">
+            <label class="form-check-label" for="themeSwitch">Modo Nocturno</label>
+          </div>
+
+        </div>
+      </div>
+    </nav>
+      
+      <!-- Contenedor principal donde van todos los div -->
+       <main class="container">
+        <!-- Pantalla de portada -->
+         <section class="display:block" id="coverScreen" aria-labelledby="gameTitle">
+        <h1 id="gameTitle">Pong</h1>
+        <div class="logo-container">
+            <img src="assets/img/logo.png" class="logo-container" alt="Logo del juego"/>
+        </div>
+        <div class="boton-juego">
+          <button id="click" aria-label="Volver al juego" class="btn btn-primary"> Play Pong! </button>
+        </div>  
+      </section>
+
+    <!-- Pantalla de juego -->
+      <section class="hidden" id="playWindow">
+      <!-- Información del juego -->
+        <h2 id="gameTitle">Play Pong!</h2>
+        <div id="infoContainer">
+          <div id="gameInfo">
+            <h3 id="gameName">Player 1</h3>
+            <p id="levelDisplay">➮ Nivel:<span> 1</span></p>  
+            <p id="playerScore">➮ Puntuación:<span> 0</span></p>
+            <p id="playerLives">➮ Vidas:<span> 3</span></p>
+            <p id="timeDisplay">➮ Tiempo:<span> 00:00</span></p>
+            <div id="ranking"></div> <!--Ranking, dentro de la sección-->
+          </div> 
+
+            <!-- Canvas del juego -->
+          <div id="canvasDiv">
+            <canvas id="pongCanvas" width="800" height="400" style="background-color: white; border: 1px solid black"></canvas>
+          </div>
+          
+          <!--Jugador 2 -->
+          <div id="gameInfo">
+            <h3 id="gameName">Player 2</h3>
+            <p id="levelDisplay2">➮ Nivel:<span> 1</span></p>  
+            <p id="playerScore2">➮ Puntuación:<span> 0</span></p>
+            <p id="playerLives2">➮ Vidas:<span> 3</span></p>
+            <p id="timeDisplay2">➮ Tiempo:<span> 00:00</span></p>
+            <div id="ranking2"></div> <!--Ranking, dentro de la sección-->
+          </div>
+        </div>
+        <div id="buttons">
+          <button id="play" aria-label="Reiniciar el juego" class="hidden">Jugar</button>
+          <button id="startButton" class="hidden">Empezar a Jugar</button>
+          <button id="continueButton" class="hidden">Seguir jugando</button>
+        </div>
+
+      </section>
+
+      <!--About me-->
+      <section id="sobreMi" class="my-5 w-100 hidden">
+        <div id="infoContainer">
+
+          <div>
+            <img src="assets/img/sobre-mi.jpg" alt="Sobre mí" style="border-radius:100%; border:1px solid black">
+          </div>
+
+          <div id="quienSoy">
+            <h2>¿Quién soy?</h2>
+            <p>Soy Blanca, psicóloga de formación y aprendiz incansable. No tengo más que palabras de agradecimiento para todos mis compañeros, que han sido una inspiración constante. A los profes, Juli y Carlos, y a Cris y Pool. Por aguantarnos con vuestra paciencia infinita y por creer que podemos (cuando no siempre podemos jaja) ❤️</p>
+            <p> Un saludo especial a Estela, Ester, Irene y Saira, por su apoyo incondicional y por inspirarme. ❤️</p>
+          </div>
+        </div>
+      </section>
+
+    <!-- Sección FAQ con Bootstrap -->
+      <section id="faq" class="my-5 w-100">
+        <div class="accordion" id="accordionFAQ" style="margin-bottom: 20px;">
+          <h2>Preguntas Frecuentes</h2>
+            <!-- Pregunta 1 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="faqHeadingOne">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseOne" aria-expanded="false" aria-controls="faqCollapseOne">
+                  ¿Cómo juego a Pong?
+              </button>
+          <div id="faqCollapseOne" class="accordion-collapse collapse" aria-labelledby="faqHeadingOne" data-bs-parent="#accordionFAQ">
+            <div class="accordion-body">
+                  Usa las teclas de flecha para mover la paleta y golpear la pelota. ¡No dejes que la pelota pase tu paleta!
+            </div>
+            </div>
+            </div>
+            <!-- Pregunta 2 -->
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="faqHeadingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseTwo" aria-expanded="false" aria-controls="faqCollapseTwo">
+                  ¿Cuántos niveles tiene el juego?
+                </button>
+              </h2>
+              <div id="faqCollapseTwo" class="accordion-collapse collapse" aria-labelledby="faqHeadingTwo" data-bs-parent="#accordionFAQ">
+                <div class="accordion-body">
+                  El juego tiene múltiples niveles de dificultad. A medida que avanzas, la velocidad de la pelota aumenta, ¡y los desafíos se vuelven más difíciles!
+                </div>
+              </div>
+            </div>
+            <!-- Pregunta 3 -->
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="faqHeadingThree">
+                <button class="accordion-button collapsed show" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseThree" aria-expanded="false" aria-controls="faqCollapseThree">
+                  ¿Puedo jugar en mi teléfono móvil?
+                </button>
+              </h2>
+              <div id="faqCollapseThree" class="accordion-collapse collapse" aria-labelledby="faqHeadingThree" data-bs-parent="#accordionFAQ">
+                <div class="accordion-body">
+                  ¡Sí! El juego está optimizado para dispositivos móviles, así que puedes disfrutar de Pong en tu teléfono o tableta.
+                </div>
+              </div>
+            </div>
+          </div>
+
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-3">
+      <p>
+          Desarrollado, con ❤️ por 
+          <a href="https://www.linkedin.com/in/blancadum/" target="_blank">Blanca</a>, 
+          alumna de 
+          <a href="https://www.ironhack.com/" rel="no-follow" target="_blank">IronHack</a>
+      </p>      
+    </footer>
+    <!-- Modal de Game Over (al final del body) -->
+    
+    <div id="gameOverModal" class="game-over-modal hidden">
+      <div class="modal-content">
+        <h2>Game Over</h2>
+        <p>You lost!</p>
+        <button id="restartButton" class="btn btn-primary">Try again</button>
+      </div>
+    </div>
+    
+
+    <!-- Scripts al final del body -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/localStorage.js"></script>
+    <script src="assets/js/menu-interactions.js"></script>
+    <script src="assets/js/index.js"></script>
+
+    <script>
+      // Este fragmento puede eliminarse ya que está en "menu-interactions.js"
+      const navLinks = document.querySelectorAll('.navbar a');
+      navLinks.forEach(link => {
+          link.addEventListener('click', function() {
+              navLinks.forEach(link => link.classList.remove('active'));
+              this.classList.add('active');
+          });
+      });
+  </script>
+
+  </body>
+</html>
